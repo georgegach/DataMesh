@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='DataMesh',
-    version='0.1.1',
+    version='0.1.2',
     author='Giorgi Gachechiladze',
     author_email='georgegach@outlook.com',
     description='A collection of tools for Data Mesh architectural approach.',

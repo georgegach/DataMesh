@@ -9,7 +9,7 @@ def validate_yaml(yaml_content):
 
 # Streamlit interface
 st.title("✅ ODCS Data Contract Validator")
-st.markdown("> The following streamlit app uses [DataMesh](https://pypi.org/project/DataMesh/) python library underneath to validate *.yaml contracts* against [Open Data Contract Standard](https://github.com/bitol-io/open-data-contract-standard) JSON Schema, part of Linux Foundation.")
+st.markdown("> The following streamlit app uses [DataMesh](https://github.com/georgegach/DataMesh) python library underneath to validate *.yaml contracts* against [Open Data Contract Standard](https://github.com/bitol-io/open-data-contract-standard) JSON Schema, part of Linux Foundation.")
 
 st.markdown("___")
 
