@@ -23,10 +23,10 @@ from datamesh.contract import Validator
 validation_errors = (
     Validator(
         contract="examples/all/postgresql-adventureworks-contract.yaml",
-        standard="schema/odcs-json-schema.json"
-    )
-    .print_report()
-    .errors
+        standard="schema/odcs-json-schema.json" # This is optional
+    ) 
+    .print_report() # Prints validation results and returns `self`
+    .errors # List of errors 
 )
 ```
 ```
