@@ -73,7 +73,7 @@ can be used within your CI as
 ```
 
 
-### [Streamlit App at datamesh.streamlit.app](https://datamesh.streamlit.app/)
+### Streamlit App at [datamesh.streamlit.app](https://datamesh.streamlit.app/)
 [![streamlit app screenshot](https://raw.githubusercontent.com/georgegach/DataMesh/main/docs/streamlit/streamlit-screenshot.png)](https://datamesh.streamlit.app/)
 
 
