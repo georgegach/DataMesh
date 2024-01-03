@@ -10,6 +10,7 @@ setup(
     long_description_content_type='text/markdown',
     url='https://github.com/georgegach/DataMesh',
     packages=find_packages(),
+    include_package_data=True,
     install_requires=[
         'jsonschema',
         'pyyaml'
@@ -19,5 +20,10 @@ setup(
         'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
         'Operating System :: OS Independent',
     ],
+    entry_points={
+        'console_scripts': [
+            'data-contract-validation=datamesh.contract.validator:main',
+        ],
+    },
     python_requires='>=3.6',
 )

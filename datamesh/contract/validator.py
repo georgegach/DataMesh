@@ -3,6 +3,9 @@ import json
 import yaml
 from typing import List, Dict, Any, Union
 from jsonschema import Draft201909Validator
+import argparse
+import pkg_resources
+
 
 class Validator:
     """
@@ -26,16 +29,7 @@ class Validator:
         :param standard: A JSON standard or the path to a JSON schema file.
         """
         if standard is None:
-            project_root = os.path.abspath(
-                os.path.join(
-                    os.path.join(
-                        os.path.dirname(os.path.realpath(__file__)), 
-                        os.pardir
-                    ),
-                    os.pardir
-                )
-            )
-            standard = os.path.join(project_root, "schema", "odcs-json-schema.json")
+            standard = pkg_resources.resource_filename('datamesh', 'resources/odcs-json-schema.json')
 
         self.contract = self.load_contract(contract) if isinstance(contract, str) else contract
         self.standard = self.load_standard(standard) if isinstance(standard, str) else standard
@@ -110,5 +104,20 @@ class Validator:
         return self
 
 
+def main():
+    parser = argparse.ArgumentParser(description="Validate a YAML data contract against a Open Data Contract Standard JSON schema.")
+    parser.add_argument('contract', type=str, help="Path to the YAML data contract file.")
+    parser.add_argument('--standard', type=str, help="Path to the JSON schema standard file (optional. Defaults to local copy of ODCS packaged within the library).", default=None)
+
+    args = parser.parse_args()
+
+    try:
+        validator = Validator(contract=args.contract, standard=args.standard)
+        validator.print_report()
+        return 0 if validator.is_valid() else 1
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return 1
+
 if __name__ == "__main__":
-    pass
+    exit(main())
