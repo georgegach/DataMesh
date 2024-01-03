@@ -43,6 +43,36 @@ validation_errors = (
 │  └── 'managedDataset' is not one of ['DataContract']
 ```
 
+can be used within your CI as 
+```yaml
+...
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install datamesh
+
+      - name: Run Data Contract Validation on all examples
+        run: |
+          set -o pipefail
+          failed_files=""
+          for file in examples/all/*.yaml; do
+            echo "Validating $file..."
+            if ! data-contract-validation "$file"; then
+              echo "Validation failed for $file"
+              failed_files="$failed_files $file"
+            fi
+          done
+
+          if [ -n "$failed_files" ]; then
+            echo "Validation failed for the following files:$failed_files"
+            exit 1
+          else
+            echo "All files validated successfully."
+          fi
+...
+```
+
+
 ### [Streamlit App](https://datamesh.streamlit.app/)
 [![streamlit app screenshot](https://raw.githubusercontent.com/georgegach/DataMesh/main/docs/streamlit/streamlit-screenshot.png)](https://datamesh.streamlit.app/)
 
