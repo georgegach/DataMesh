@@ -1,0 +1,24 @@
+name: Update ODCS JSON Schema
+
+on:
+  schedule:
+    - cron: '0 * * * *'  
+
+jobs:
+  update-schema:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Download Latest ODCS JSON Schema
+      run: |
+        curl -o datamesh/resources/odcs-json-schema.json https://raw.githubusercontent.com/bitol-io/open-data-contract-standard/main/schema/odcs-json-schema.json
+
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.name 'GitHub Action'
+        git config --global user.email 'action@github.com'
+        git add datamesh/resources/odcs-json-schema.json
+        git commit -m 'Update ODCS JSON Schema' || echo "No changes to commit"
+        git push
