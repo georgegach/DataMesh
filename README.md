@@ -23,10 +23,10 @@ from datamesh.contract import Validator
 validation_errors = (
     Validator(
         contract="examples/all/postgresql-adventureworks-contract.yaml",
-        standard="schema/odcs-json-schema.json"
-    )
-    .print_report()
-    .errors
+        standard="schema/odcs-json-schema.json" # This is optional
+    ) 
+    .print_report() # Prints validation results and returns `self`
+    .errors # List of errors 
 )
 ```
 ```
@@ -43,7 +43,37 @@ validation_errors = (
 │  └── 'managedDataset' is not one of ['DataContract']
 ```
 
-### [Streamlit App](https://datamesh.streamlit.app/)
+can be used within your CI as 
+```yaml
+...
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install datamesh
+
+      - name: Run Data Contract Validation on all examples
+        run: |
+          set -o pipefail
+          failed_files=""
+          for file in examples/all/*.yaml; do
+            echo "Validating $file..."
+            if ! data-contract-validation "$file"; then
+              echo "Validation failed for $file"
+              failed_files="$failed_files $file"
+            fi
+          done
+
+          if [ -n "$failed_files" ]; then
+            echo "Validation failed for the following files:$failed_files"
+            exit 1
+          else
+            echo "All files validated successfully."
+          fi
+...
+```
+
+
+### Streamlit App at [datamesh.streamlit.app](https://datamesh.streamlit.app/)
 [![streamlit app screenshot](https://raw.githubusercontent.com/georgegach/DataMesh/main/docs/streamlit/streamlit-screenshot.png)](https://datamesh.streamlit.app/)
 
 
