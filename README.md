@@ -7,8 +7,14 @@ The library can be used to validate your .yaml data contract against Open Data C
 
 
 ### Installation
+Install it from PyPi
 ```
 pip install -U datamesh
+```
+
+Install latest nightly builds from git
+```
+pip install git+https://github.com/georgegach/DataMesh.git
 ```
 
 ### Usage
